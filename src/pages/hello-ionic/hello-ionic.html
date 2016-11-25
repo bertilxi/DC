@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-navbar>Donde Curso</ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-item>
+    <ion-label>Carrera</ion-label>
+    <ion-select>
+      <ion-option selected="true">Selecciona una carrera</ion-option>
+      <ion-option>Ing. Sistemas</ion-option>
+      <ion-option>Ing. Industrial</ion-option>
+      <ion-option>Ing. El&eacute;ctrica</ion-option>
+      <ion-option>Ing. Mec&aacute;nica</ion-option>
+      <ion-option>Ing. Civil</ion-option>
+      <ion-option>TECNICATURA SUPERIOR EN MECATR&Oacute;NICA</ion-option>
+      <ion-option>Institucional</ion-option>
+      <ion-option>Extensi&oacute;n Universitaria</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Nivel:</ion-label>
+    <ion-select>
+      <ion-option selected="true">Seleccione un nivel</ion-option>
+      <ion-option>Nivel 1</ion-option>
+      <ion-option>Nivel 2</ion-option>
+      <ion-option>Nivel 3</ion-option>
+      <ion-option>Nivel 4</ion-option>
+      <ion-option>Nivel 5</ion-option>
+      <ion-option>Nivel 6</ion-option>
+      <ion-option>No corresponde</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Materia:</ion-label>
+    <ion-select>
+      <ion-option selected="true"></ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Comision:</ion-label>
+    <ion-select>
+      <ion-option selected="true"></ion-option>
+    </ion-select>
+  </ion-item>  
+  <ion-item>
+    <ion-label>Fecha:</ion-label>
+    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>
+  </ion-item>
+  <div style="padding-top: 50px"></div>
+  <button ion-button block>Buscar</button>
+</ion-content>
+<ion-footer></ion-footer>
+<!--
+<body>
+  <div class="row">
+    <div id="formulario" style="width:100%;">
+      <form method="post" action="" id="frmDistribucion">
+
+        <div class="bloque">
+          <p class="label">Materia: </p>
+          <div class="select-style">
+            <select data-role="select" name="materia" id="materia" style="border: 1px solid #808080;" onchange="changeMateria();">
+						<option value="0" data-carrera="0" data-nivel="0">Seleccione una carrera</option>					
+					</select>
+          </div>
+        </div>
+        </br>
+        <div class="bloque">
+          <p class="label">Comision: </p>
+          <div class="select-style">
+            <select name="comisiones" id="comisiones" style="display:none;border: 1px solid #808080;">
+					<option value="0">Seleccione una comision</option>					
+				</select>
+          </div>
+          <div class="select-style">
+            <select name="comisiones-clon" id="comisiones-clon" style="display:none;border: 1px solid #808080;">
+					<option value="0">Seleccione una comision</option>					
+				</select>
+          </div>
+        </div>
+        </br>
+        <div class="bloque">
+          <p class="label">Fecha: </p>
+          <input style="background: none repeat scroll 0 0 #E8E8E1;border: 1px solid #D3D3D3;width: 50%;" type="date" name="fecha_inicio"
+            id="fecha_inicio" value="" /> </br>
+        </div>
+        <div class="bloque" style="text-align: right;margin-bottom: 30px;margin-right: 10px;">
+          <div id="boton_buscar" class='button light center' onclick="buscarDistribucion();return false;">Buscar</div>
+          <div id="buscando" class='button light center' style="display:none;">Buscando...</div>
+        </div>
+      </form>
+    </div>
+    <div class="row" style="text-align: center;">
+      <div id="nueva_consulta" style="display:none;width: 47% !important;" class='button light center' onclick="nuevaConsulta();">Nueva Consulta</div>
+      <div id="resultados" style="display:none;" class="">
+      </div>
+    </div>
+</body>
+-->

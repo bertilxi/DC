@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Storage } from '@ionic/storage';
+import { DataService } from '../providers/data-service';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 
 
@@ -17,6 +19,6 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
     MyApp,
     HelloIonicPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [Storage, DataService, { provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
-export class AppModule {}
+export class AppModule { }

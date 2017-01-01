@@ -1,14 +1,14 @@
-/// <reference path="../../../typings/globals/jquery/index.d.ts" />
+
 import { Component } from '@angular/core';
+import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { DataService } from '../../providers/data-service';
 import { Materia, Comision, Nivel, Carrera } from '../../providers/model';
 
 @Component({
-  selector: 'hello-ionic-page',
-  templateUrl: 'hello-ionic.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
-export class HelloIonicPage {
+export class HomePage {
 
   private mDate: Date = new Date();
   private myDate: String = this.mDate.toISOString();
@@ -36,7 +36,7 @@ export class HelloIonicPage {
   private NIVEL_KEY: string = "nivel";
   private MATERIAS_KEY = "materias";
 
-  constructor(private storage: Storage, private data: DataService) {
+  constructor(private storage: Storage, private alertCtrl: AlertController) {
     this.initData();
     this.selectCarrera = this.carreras[0];
     this.selectNivel = this.niveles[0];
@@ -45,23 +45,24 @@ export class HelloIonicPage {
 
   ionViewWillEnter() {
 
-
-
     this.storage.get(this.CARRERA_KEY).then(data => {
       if (data) {
         this.selectCarrera = JSON.parse(data);
+        this.onChangeCareer();
       }
     });
 
     this.storage.get(this.NIVEL_KEY).then(data => {
       if (data) {
         this.selectNivel = JSON.parse(data);
+        this.onChangeLevel();
       }
     });
 
     this.storage.get(this.MATERIAS_KEY).then(data => {
       if (data) {
         this.materias = JSON.parse(data);
+        this.onChangeSubject();
       }
     });
 
@@ -70,12 +71,6 @@ export class HelloIonicPage {
   initData() {
 
     // CARRERAS
-    /*
-    const carrera0 = new Carrera();
-    carrera0.id = 0;
-    carrera0.nombre = "Selecciona una carrera";
-    this.carreras.push(carrera0);    
-    */
 
     const carrera1 = new Carrera();
     carrera1.id = 1;
@@ -111,12 +106,6 @@ export class HelloIonicPage {
     this.carreras.push(carrera8);
 
     //NIVELES
-    /*
-        const nivel0 = new Nivel();
-        nivel0.id = 0;
-        nivel0.nombre = "Seleccione un nivel";
-        this.niveles.push(nivel0);
-    */
 
     const nivel1 = new Nivel();
     nivel1.id = 1;
@@ -175,14 +164,6 @@ export class HelloIonicPage {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
         this.materias = JSON.parse(xmlhttp.responseText);
-        /*
-                for (let index in this.materias) {
-                  for (let indexCom in this.materias[index].comisiones) {
-                    console.log(this.materias[index].comisiones[indexCom].id);
-                    console.log(this.materias[index].comisiones[indexCom].nombre);
-                  }
-                }
-        */
         console.log(this.materias);
         console.log("get materias complete");
         this.storage.set(this.MATERIAS_KEY, JSON.stringify(this.materias));
@@ -231,22 +212,39 @@ export class HelloIonicPage {
 
     // TODO: use alert controller
     if (!this.selectCarrera) {
-      alert('Debe seleccionar una carrera');
+
+      let alert = this.alertCtrl.create({
+        title: 'Debe seleccionar una carrera',
+        buttons: ['OK']
+      });
+      alert.present();
+
       return;
     }
 
     if (!this.selectNivel) {
-      alert('Debe seleccionar  un nivel');
+
+      let alert = this.alertCtrl.create({
+        title: 'Debe seleccionar una nivel',
+        buttons: ['OK']
+      });
+      alert.present();
+
       return;
     }
 
     if (!this.mDate) {
-      alert('Debe seleccionar  una fecha válida');
+      
+      let alert = this.alertCtrl.create({
+        title: 'Debe seleccionar una fecha',
+        buttons: ['OK']
+      });
+      alert.present();
+
       return;
     }
 
     if (!this.selectMateria) {
-      alert('Debe seleccionar  una fecha válida');
       this.selectMateria = new Materia();
       this.selectMateria.id = 0;
     }

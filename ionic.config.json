@@ -1,15 +1,6 @@
 {
-    "name": "¿ Donde Curso ?",
-    "app_id": "com.ar.edu.utn.frsf.dondecurso",
-    "v2": true,
-    "typescript": true,
-    "gulpStartupTasks": [
-        "sass",
-        "watch"
-    ],
-    "watchPatterns": [
-        "www/**/*",
-        "!www/lib/**/*",
-        "!www/**/*.map"
-    ]
+  "name": "DondeCurso",
+  "app_id": "",
+  "v2": true,
+  "typescript": true
 }

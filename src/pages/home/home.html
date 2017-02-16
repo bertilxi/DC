@@ -5,13 +5,13 @@
   <ion-list *ngIf="!showDistribution">
     <ion-item>
       <ion-label>Carrera</ion-label>
-      <ion-select [(ngModel)]="selectCarrera" [placeholder]="'Selecciona una carrera'" (ionChange)="onChangeCareer()">
+      <ion-select [(ngModel)]="selectCarrera" [placeholder]="'Selecciona una carrera'" (ionChange)="processSubjectsLoad()">
         <ion-option *ngFor="let mCarrera of carreras" [value]="mCarrera" selected="false"> {{mCarrera.nombre}} </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Nivel:</ion-label>
-      <ion-select [(ngModel)]="selectNivel" [placeholder]="'Selecciona un nivel'" (ionChange)="onChangeLevel()">
+      <ion-select [(ngModel)]="selectNivel" [placeholder]="'Selecciona un nivel'" (ionChange)="processSubjectsLoad()">
         <ion-option *ngFor="let mNivel of niveles" [value]="mNivel" selected="false"> {{mNivel.nombre}} </ion-option>
       </ion-select>
     </ion-item>

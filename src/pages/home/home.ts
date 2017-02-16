@@ -34,7 +34,7 @@ export class HomePage {
     this.loadSubjects();
   }
 
-  initData() {
+  private initData(): void {
 
     // CARRERAS
     this.carreras.push(new Carrera(1, "Ing. Sistemas"));
@@ -58,19 +58,14 @@ export class HomePage {
   }
 
   onChangeSubject() {
-
     this.comisiones = [];
-
     for (let i in this.selectMateria.comisiones) {
       this.comisiones.push(this.selectMateria.comisiones[i]);
     }
-
   }
 
   loadSubjects() {
-
     let xmlhttp = new XMLHttpRequest();
-
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         let data: any = JSON.parse(xmlhttp.responseText);

@@ -1,43 +1,43 @@
 <ion-header>
-    <ion-navbar>¿ Donde Curso ?</ion-navbar>
+  <ion-navbar>¿ Donde Curso ?</ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-list *ngIf="!showDistribution">
-        <ion-item>
-            <ion-label>Carrera</ion-label>
-            <ion-select [(ngModel)]="selectCarrera" [placeholder]="'Selecciona una carrera'" (ionChange)="onChangeCareer()">
-                <ion-option *ngFor="let mCarrera of carreras" [value]="mCarrera" selected="false"> {{mCarrera.nombre}} </ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Nivel:</ion-label>
-            <ion-select [(ngModel)]="selectNivel" [placeholder]="'Selecciona un nivel'" (ionChange)="onChangeLevel()">
-                <ion-option *ngFor="let mNivel of niveles" [value]="mNivel" selected="false"> {{mNivel.nombre}} </ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Materia:</ion-label>
-            <ion-select [(ngModel)]="selectMateria" [placeholder]="'Selecciona una materia'" (ionChange)="onChangeSubject()">
-                <ion-option *ngFor="let mMateria of filteredMaterias" [value]="mMateria" selected="false"> {{mMateria.nombre}} </ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Comision:</ion-label>
-            <ion-select [(ngModel)]="selectComision" [placeholder]="'Selecciona una comisión'">
-                <ion-option *ngFor="let mComision of comisiones" [value]="mComision" selected="false"> {{mComision.nombre}} </ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Fecha:</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>
-        </ion-item>
-    </ion-list>
+  <ion-list *ngIf="!showDistribution">
+    <ion-item>
+      <ion-label>Carrera</ion-label>
+      <ion-select [(ngModel)]="selectCarrera" [placeholder]="'Selecciona una carrera'" (ionChange)="onChangeCareer()">
+        <ion-option *ngFor="let mCarrera of carreras" [value]="mCarrera" selected="false"> {{mCarrera.nombre}} </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nivel:</ion-label>
+      <ion-select [(ngModel)]="selectNivel" [placeholder]="'Selecciona un nivel'" (ionChange)="onChangeLevel()">
+        <ion-option *ngFor="let mNivel of niveles" [value]="mNivel" selected="false"> {{mNivel.nombre}} </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Materia:</ion-label>
+      <ion-select [(ngModel)]="selectMateria" [placeholder]="'Selecciona una materia'" (ionChange)="onChangeSubject()">
+        <ion-option *ngFor="let mMateria of filteredMaterias" [value]="mMateria" selected="false"> {{mMateria.nombre}} </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Comision:</ion-label>
+      <ion-select [(ngModel)]="selectComision" [placeholder]="'Selecciona una comisión'">
+        <ion-option *ngFor="let mComision of comisiones" [value]="mComision" selected="false"> {{mComision.nombre}} </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha:</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <div style="padding-top: 50px"></div>
+  <div *ngIf="showDistribution">
+    <span [innerHTML]="distribution"></span>
     <div style="padding-top: 50px"></div>
-    <div *ngIf="showDistribution">
-        <span [innerHTML]="distribution"></span>
-        <div style="padding-top: 50px"></div>
-    </div>
-    <button class="myButton" ion-button block *ngIf="!showDistribution" (tap)="searchDistribucion()">Buscar</button>
-    <button class="myButton" ion-button block *ngIf="showDistribution" (tap)="newQuery()">Nueva Consulta</button>
+  </div>
+  <button class="myButton" ion-button block *ngIf="!showDistribution" (tap)="searchDistribucion()">Buscar</button>
+  <button class="myButton" ion-button block *ngIf="showDistribution" (tap)="newQuery()">Nueva Consulta</button>
 </ion-content>
 <ion-footer></ion-footer>

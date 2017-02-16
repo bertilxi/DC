@@ -1,7 +1,6 @@
 
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { Materia, Comision, Nivel, Carrera } from '../../providers/model';
 
 @Component({
@@ -28,132 +27,44 @@ export class HomePage {
   private distribution: any;
   private showDistribution: boolean = false;
 
-  tmp: any;
-
-  // IONIC Storage
-
-  private CARRERA_KEY: string = "carrera";
-  private NIVEL_KEY: string = "nivel";
-  private MATERIAS_KEY = "materias";
-
-  constructor(private storage: Storage, private alertCtrl: AlertController) {
+  constructor(private alertCtrl: AlertController) {
     this.initData();
-    this.selectCarrera = this.carreras[0];
-    this.selectNivel = this.niveles[0];
+    this.selectCarrera = new Carrera(0, '');
+    this.selectNivel = new Nivel(0, '');
     this.loadSubjects();
-  }
-
-  ionViewWillEnter() {
-
-    this.storage.get(this.CARRERA_KEY).then(data => {
-      if (data) {
-        this.selectCarrera = JSON.parse(data);
-        this.onChangeCareer();
-      }
-    });
-
-    this.storage.get(this.NIVEL_KEY).then(data => {
-      if (data) {
-        this.selectNivel = JSON.parse(data);
-        this.onChangeLevel();
-      }
-    });
-
-    this.storage.get(this.MATERIAS_KEY).then(data => {
-      if (data) {
-        this.materias = JSON.parse(data);
-        this.onChangeSubject();
-      }
-    });
-
   }
 
   initData() {
 
     // CARRERAS
-
-    const carrera1 = new Carrera();
-    carrera1.id = 1;
-    carrera1.nombre = "Ing. Sistemas";
-    this.carreras.push(carrera1);
-    const carrera2 = new Carrera();
-    carrera2.id = 2;
-    carrera2.nombre = "Ing. Industrial";
-    this.carreras.push(carrera2);
-    const carrera3 = new Carrera();
-    carrera3.id = 5;
-    carrera3.nombre = "Ing. Eléctrica";
-    this.carreras.push(carrera3);
-    const carrera4 = new Carrera();
-    carrera4.id = 6;
-    carrera4.nombre = "Ing. Mecánica";
-    this.carreras.push(carrera4);
-    const carrera5 = new Carrera();
-    carrera5.id = 7;
-    carrera5.nombre = "Ing. Civil";
-    this.carreras.push(carrera5);
-    const carrera6 = new Carrera();
-    carrera6.id = 8;
-    carrera6.nombre = "TECNICATURA SUPERIOR EN MECATRÓNICA";
-    this.carreras.push(carrera6);
-    const carrera7 = new Carrera();
-    carrera7.id = 9;
-    carrera7.nombre = "Institucional";
-    this.carreras.push(carrera7);
-    const carrera8 = new Carrera();
-    carrera8.id = 10;
-    carrera8.nombre = "Extensión Universitaria";
-    this.carreras.push(carrera8);
+    this.carreras.push(new Carrera(1, "Ing. Sistemas"));
+    this.carreras.push(new Carrera(2, "Ing. Industrial"));
+    this.carreras.push(new Carrera(5, "Ing. Eléctrica"));
+    this.carreras.push(new Carrera(6, "Ing. Mecánica"));
+    this.carreras.push(new Carrera(7, "Ing. Civil"));
+    this.carreras.push(new Carrera(8, "TECNICATURA SUPERIOR EN MECATRÓNICA"));
+    this.carreras.push(new Carrera(9, "Institucional"));
+    this.carreras.push(new Carrera(10, "Extensión Universitaria"));
 
     //NIVELES
+    this.niveles.push(new Nivel(1, "Nivel 1"));
+    this.niveles.push(new Nivel(2, "Nivel 2"));
+    this.niveles.push(new Nivel(3, "Nivel 3"));
+    this.niveles.push(new Nivel(4, "Nivel 4"));
+    this.niveles.push(new Nivel(5, "Nivel 5"));
+    this.niveles.push(new Nivel(6, "Nivel 6"));
+    this.niveles.push(new Nivel(7, "No corresponde"));
 
-    const nivel1 = new Nivel();
-    nivel1.id = 1;
-    nivel1.nombre = "Nivel 1";
-    this.niveles.push(nivel1);
-    const nivel2 = new Nivel();
-    nivel2.id = 2;
-    nivel2.nombre = "Nivel 2";
-    this.niveles.push(nivel2);
-    const nivel3 = new Nivel();
-    nivel3.id = 3;
-    nivel3.nombre = "Nivel 3";
-    this.niveles.push(nivel3);
-    const nivel4 = new Nivel();
-    nivel4.id = 4;
-    nivel4.nombre = "Nivel 4";
-    this.niveles.push(nivel4);
-    const nivel5 = new Nivel();
-    nivel5.id = 5;
-    nivel5.nombre = "Nivel 5";
-    this.niveles.push(nivel5);
-    const nivel6 = new Nivel();
-    nivel6.id = 6;
-    nivel6.nombre = "Nivel 6";
-    this.niveles.push(nivel6);
-    const nivel7 = new Nivel();
-    nivel7.id = 7;
-    nivel7.nombre = "No corresponde";
-    this.niveles.push(nivel7);
-
-
-  }
-
-  onChangeCareer() {
-    this.processSubjectsLoad();
-  }
-
-  onChangeLevel() {
-    this.processSubjectsLoad();
   }
 
   onChangeSubject() {
 
-    this.comisiones = new Array<Comision>();
+    this.comisiones = [];
+
     for (let i in this.selectMateria.comisiones) {
       this.comisiones.push(this.selectMateria.comisiones[i]);
     }
-    console.log(this.comisiones);
+
   }
 
   loadSubjects() {
@@ -162,85 +73,59 @@ export class HomePage {
 
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-        this.materias = JSON.parse(xmlhttp.responseText);
-        console.log(this.materias);
-        console.log("get materias complete");
-        this.storage.set(this.MATERIAS_KEY, JSON.stringify(this.materias));
+        let data: any = JSON.parse(xmlhttp.responseText);
+        for (let i in data) {
+          this.materias.push(data[i]);
+        }
       }
-
     }
     xmlhttp.open("GET", "http://www.frsf.utn.edu.ar/getMaterias.php", true);
     xmlhttp.send();
-
   }
 
   processSubjectsLoad() {
-
-    if (!this.materias) {
+    if (!this.materias || !this.selectCarrera || !this.selectNivel) {
       return;
     }
-
-    if (this.selectCarrera && this.selectNivel) {
-
-      this.filteredMaterias = new Array<Materia>();
-      for (let index in this.materias) {
-
-        let materia: Materia = this.materias[index];
-
-        if (this.selectNivel.id == materia.nivel &&
-          this.selectCarrera.id == materia.id_carrera) {
-          this.filteredMaterias.push(this.materias[index]);
-        }
-
+    for (let x of this.materias) {
+      if (x.id_carrera == this.selectCarrera.id &&
+        x.nivel == this.selectNivel.id) {
+        this.filteredMaterias.push(x)
       }
     }
-
-  }
-
-  processComissions() {
-
   }
 
   newQuery() {
-
     // TODO hide and show correct buttons
     this.showDistribution = false;
   }
 
   searchDistribucion() {
 
-    // TODO: use alert controller
     if (!this.selectCarrera) {
-
       let alert = this.alertCtrl.create({
         title: 'Debe seleccionar una carrera',
         buttons: ['OK']
       });
       alert.present();
-
       return;
     }
 
     if (!this.selectNivel) {
-
       let alert = this.alertCtrl.create({
         title: 'Debe seleccionar una nivel',
         buttons: ['OK']
       });
       alert.present();
-
       return;
     }
 
     if (!this.mDate) {
-      
       let alert = this.alertCtrl.create({
         title: 'Debe seleccionar una fecha',
         buttons: ['OK']
       });
       alert.present();
-
       return;
     }
 
@@ -250,7 +135,7 @@ export class HomePage {
     }
 
     if (!this.selectComision) {
-      this.selectComision = new Comision();
+      this.selectComision = new Comision(-1, '');
       this.selectComision.id = null;
     }
 
@@ -258,9 +143,7 @@ export class HomePage {
 
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        //this.distribution = JSON.parse(xmlhttp.responseText);
         this.distribution = xmlhttp.responseText;
-        console.log(this.distribution);
         this.showDistribution = true;
       }
     }
@@ -272,16 +155,10 @@ export class HomePage {
       "&materia=" + this.selectMateria.id +
       "&comisiones=" + this.selectComision.id;
 
-    console.log(params);
-
     xmlhttp.open("POST", "http://www.frsf.utn.edu.ar/getDistribucion.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 
-    this.storage.set(this.CARRERA_KEY, JSON.stringify(this.selectCarrera));
-    this.storage.set(this.NIVEL_KEY, JSON.stringify(this.selectNivel));
-
   }
-
 
 }

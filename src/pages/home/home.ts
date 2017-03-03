@@ -11,9 +11,6 @@ export class HomePage {
 
   private mDate: Date = new Date();
   private myDate: String = this.mDate.toISOString();
-  private day = this.mDate.getDate();
-  private month = (this.mDate.getMonth() + 1);
-  private year = this.mDate.getFullYear();
 
   private carreras: Array<Carrera> = new Array<Carrera>();
   private niveles: Array<Nivel> = new Array<Nivel>();
@@ -97,7 +94,7 @@ export class HomePage {
 
   searchDistribucion() {
 
-    if (!this.selectCarrera) {
+    if (!this.selectCarrera || !this.selectCarrera.id) {
       let alert = this.alertCtrl.create({
         title: 'Debe seleccionar una carrera',
         buttons: ['OK']
@@ -106,9 +103,9 @@ export class HomePage {
       return;
     }
 
-    if (!this.selectNivel) {
+    if (!this.selectNivel || !this.selectNivel.id) {
       let alert = this.alertCtrl.create({
-        title: 'Debe seleccionar una nivel',
+        title: 'Debe seleccionar un nivel',
         buttons: ['OK']
       });
       alert.present();
@@ -144,7 +141,7 @@ export class HomePage {
     }
 
     let params =
-      "fecha_inicio=" + this.year + '-' + this.month + '-' + this.day +
+      "fecha_inicio=" + this.myDate.substring(0, 10) +
       "&carrera=" + this.selectCarrera.id +
       "&nivel=" + this.selectNivel.id +
       "&materia=" + this.selectMateria.id +

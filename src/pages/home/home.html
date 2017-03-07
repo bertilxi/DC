@@ -5,7 +5,7 @@
   <ion-list *ngIf="!showDistribution">
     <ion-item>
       <ion-label>Carrera</ion-label>
-      <ion-select [(ngModel)]="selectCarrera" [placeholder]="'Selecciona una carrera'" (ionChange)="processSubjectsLoad()">
+      <ion-select [(ngModel)]="selectCarrera" [placeholder]="'Selecciona una carrera'" (ionChange)="onChangeCareer()">
         <ion-option *ngFor="let mCarrera of carreras" [value]="mCarrera" selected="false"> {{mCarrera.nombre}} </ion-option>
       </ion-select>
     </ion-item>

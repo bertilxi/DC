@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { Materia, Comision, Nivel, Carrera } from '../../providers/model';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -23,12 +24,32 @@ export class HomePage {
   private selectMateria: Materia = new Materia();
   private distribution: any;
   private showDistribution: boolean = false;
+  private CARRERA_KEY: string = "carrera";
+  private NIVEL_KEY: string = "nivel";
 
-  constructor(private alertCtrl: AlertController) {
+  constructor(private storage: Storage, private alertCtrl: AlertController) {
     this.initData();
     this.selectCarrera = new Carrera(0, '');
     this.selectNivel = new Nivel(0, '');
     this.loadSubjects();
+    console.log("a");
+    storage.ready().then(() => {
+      console.log("b");
+      this.storage.get(this.CARRERA_KEY).then(data => {
+        console.log("c");
+        if (data) {
+          this.selectCarrera = JSON.parse(data);
+          this.onChangeCareer();
+          console.log(this.selectCarrera);
+        }
+      });
+      this.storage.get(this.NIVEL_KEY).then(data => {
+        if (data) {
+          this.selectMateria = JSON.parse(data);
+          this.onChangeLevel();
+        }
+      });
+    });
   }
 
   private initData(): void {
@@ -54,8 +75,21 @@ export class HomePage {
 
   }
 
+  onChangeCareer() {
+    console.log("z");
+    console.log(this.selectCarrera);
+    this.processSubjectsLoad();
+  }
+
+  onChangeLevel() {
+    this.processSubjectsLoad();
+  }
+
   onChangeSubject() {
     this.comisiones = [];
+    if(!this.selectMateria){
+      return;
+    }
     for (let i in this.selectMateria.comisiones) {
       this.comisiones.push(this.selectMateria.comisiones[i]);
     }
@@ -79,6 +113,10 @@ export class HomePage {
     if (!this.materias || !this.selectCarrera || !this.selectNivel) {
       return;
     }
+    this.selectMateria = undefined;
+    this.selectComision = undefined;
+    this.comisiones = [];
+    this.filteredMaterias = [];
     for (let x of this.materias) {
       if (x.id_carrera == this.selectCarrera.id &&
         x.nivel == this.selectNivel.id) {
@@ -151,6 +189,8 @@ export class HomePage {
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 
+    this.storage.set(this.CARRERA_KEY, JSON.stringify(this.selectCarrera));
+    this.storage.set(this.NIVEL_KEY, JSON.stringify(this.selectNivel));
   }
 
 }

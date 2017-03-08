@@ -80,15 +80,15 @@ export class HomePage {
 
   }
 
-  onChangeCareer() {
+  public onChangeCareer(): void {
     this.processSubjectsLoad();
   }
 
-  onChangeLevel() {
+  public onChangeLevel(): void {
     this.processSubjectsLoad();
   }
 
-  onChangeSubject() {
+  public onChangeSubject(): void {
     this.comisiones = [];
     if (!this.selectMateria) {
       return;
@@ -98,7 +98,7 @@ export class HomePage {
     }
   }
 
-  loadSubjects() {
+  public loadSubjects(): void {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -109,19 +109,14 @@ export class HomePage {
         this.processSubjectsLoad();
       }
       if (xmlhttp.readyState == 4 && xmlhttp.status != 200) {
-        let alert = this.alertCtrl.create({
-          title: this.strings.ERROR_CONN_TITLE,
-          message: this.strings.ERROR_CONN_MESSAGE,
-          buttons: [this.strings.OK_BUTTON]
-        });
-        alert.present();
+        this.createAlert(this.strings.ERROR_CONN_TITLE, this.strings.OK_BUTTON, this.strings.ERROR_CONN_MESSAGE);
       }
     }
     xmlhttp.open('GET', this.subjectsURL, true);
     xmlhttp.send();
   }
 
-  processSubjectsLoad() {
+  public processSubjectsLoad(): void {
     if (!this.materias || !this.selectCarrera || !this.selectNivel) {
       return;
     }
@@ -137,44 +132,15 @@ export class HomePage {
     }
   }
 
-  searchDistribucion() {
+  private createAlert(title, button, message = ''): void {
+    let alert = this.alertCtrl.create({
+      title: title,
+      buttons: [button]
+    });
+    alert.present();
+  }
 
-    if (!this.selectCarrera || !this.selectCarrera.id) {
-      let alert = this.alertCtrl.create({
-        title: this.strings.MUST_CHOOSE_CAREER_LABEL,
-        buttons: [this.strings.OK_BUTTON]
-      });
-      alert.present();
-      return;
-    }
-
-    if (!this.selectNivel || !this.selectNivel.id) {
-      let alert = this.alertCtrl.create({
-        title: this.strings.MUST_CHOOSE_LEVEL_LABEL,
-        buttons: [this.strings.OK_BUTTON]
-      });
-      alert.present();
-      return;
-    }
-
-    if (!this.mDate) {
-      let alert = this.alertCtrl.create({
-        title: this.strings.MUST_CHOOSE_DATE_LABEL,
-        buttons: [this.strings.OK_BUTTON]
-      });
-      alert.present();
-      return;
-    }
-
-    if (!this.selectMateria) {
-      this.selectMateria = new Materia();
-      this.selectMateria.id = 0;
-    }
-
-    if (!this.selectComision) {
-      this.selectComision = new Comision(-1, '');
-      this.selectComision.id = null;
-    }
+  private requestDistribution(): void {
 
     let loading = this.loadingController.create({
       content: this.strings.PLEASE_WAIT_LABEL
@@ -190,12 +156,7 @@ export class HomePage {
         this.gotoResultPage(this.distribution);
       }
       if (xmlhttp.readyState == 4 && xmlhttp.status != 200) {
-        let alert = this.alertCtrl.create({
-          title: this.strings.ERROR_CONN_TITLE,
-          message: this.strings.ERROR_CONN_MESSAGE,
-          buttons: [this.strings.OK_BUTTON]
-        });
-        alert.present();
+        this.createAlert(this.strings.ERROR_CONN_TITLE, this.strings.OK_BUTTON, this.strings.ERROR_CONN_MESSAGE);
       }
       loading.dismiss();
     }
@@ -210,6 +171,36 @@ export class HomePage {
     xmlhttp.open('POST', this.distributionURL, true);
     xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xmlhttp.send(params);
+  }
+
+  public searchDistribucion(): void {
+
+    if (!this.selectCarrera || !this.selectCarrera.id) {
+      this.createAlert(this.strings.MUST_CHOOSE_CAREER_LABEL, this.strings.OK_BUTTON);
+      return;
+    }
+
+    if (!this.selectNivel || !this.selectNivel.id) {
+      this.createAlert(this.strings.MUST_CHOOSE_LEVEL_LABEL, this.strings.OK_BUTTON);
+      return;
+    }
+
+    if (!this.mDate) {
+      this.createAlert(this.strings.MUST_CHOOSE_DATE_LABEL, this.strings.OK_BUTTON);
+      return;
+    }
+
+    if (!this.selectMateria) {
+      this.selectMateria = new Materia();
+      this.selectMateria.id = 0;
+    }
+
+    if (!this.selectComision) {
+      this.selectComision = new Comision(-1, '');
+      this.selectComision.id = null;
+    }
+
+    this.requestDistribution();
 
     this.storage.set(this.CARRERA_KEY, JSON.stringify(this.selectCarrera));
     this.storage.set(this.NIVEL_KEY, JSON.stringify(this.selectNivel));

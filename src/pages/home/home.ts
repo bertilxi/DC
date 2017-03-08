@@ -105,6 +105,14 @@ export class HomePage {
         }
         this.processSubjectsLoad();
       }
+      if (xmlhttp.status != 200) {
+        let alert = this.alertCtrl.create({
+          title: 'Error de conexión',
+          message: 'Intente nuevamente mas tarde',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
     }
     xmlhttp.open("GET", "http://www.frsf.utn.edu.ar/getMaterias.php", true);
     xmlhttp.send();
@@ -180,7 +188,15 @@ export class HomePage {
         this.distribution = xmlhttp.responseText;
         this.gotoResultPage(this.distribution);
       }
-        loading.dismiss();
+      if (xmlhttp.status != 200) {
+        let alert = this.alertCtrl.create({
+          title: 'Error de conexión',
+          message: 'Intente nuevamente mas tarde',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+      loading.dismiss();
     }
 
     let params =

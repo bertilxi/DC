@@ -172,7 +172,7 @@ export class HomePage {
     xmlhttp.send(params);
   }
 
-  public searchDistribucion(): void {
+  public searchDistribution(): void {
 
     if (!this.selectCarrera || !this.selectCarrera.id) {
       this.createAlert(this.strings.MUST_CHOOSE_CAREER_LABEL, this.strings.OK_BUTTON);

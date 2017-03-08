@@ -21,15 +21,15 @@
         <ion-option *ngFor="let mMateria of filteredMaterias" [value]="mMateria" selected="false"> {{mMateria.nombre}} </ion-option>
       </ion-select>
     </ion-item>
-      <ion-label>{{strings.COMISSION_LABEL}}</ion-label>
     <ion-item *ngIf="selectMateria && selectMateria.id !== 0">
+    <ion-label>{{strings.COMISSION_LABEL}}</ion-label>
       <ion-select [(ngModel)]="selectComision" [placeholder]="'Selecciona una comisión'">
         <ion-option *ngFor="let mComision of comisiones" [value]="mComision" selected="false"> {{mComision.nombre}} </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>{{strings.DATE_LABEL}}</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat= "DD/MM/YYYY" [(ngModel)]="myDate"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="myDate"></ion-datetime>
     </ion-item>
   </ion-list>
   <div style="padding-top: 50px"></div>

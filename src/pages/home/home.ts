@@ -108,7 +108,7 @@ export class HomePage {
         }
         this.processSubjectsLoad();
       }
-      if (xmlhttp.status != 200) {
+      if (xmlhttp.readyState == 4 && xmlhttp.status != 200) {
         let alert = this.alertCtrl.create({
           title: this.strings.ERROR_CONN_TITLE,
           message: this.strings.ERROR_CONN_MESSAGE,
@@ -189,7 +189,7 @@ export class HomePage {
         this.distribution = xmlhttp.responseText;
         this.gotoResultPage(this.distribution);
       }
-      if (xmlhttp.status != 200) {
+      if (xmlhttp.readyState == 4 && xmlhttp.status != 200) {
         let alert = this.alertCtrl.create({
           title: this.strings.ERROR_CONN_TITLE,
           message: this.strings.ERROR_CONN_MESSAGE,

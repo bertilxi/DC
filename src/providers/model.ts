@@ -10,6 +10,17 @@ export class Carrera {
 
 }
 
+export class Nivel {
+  id: number;
+  nombre: string;
+
+  constructor(mID: number, mNombre: string) {
+    this.id = mID;
+    this.nombre = mNombre;
+  }
+
+}
+
 export class Materia {
   comisiones: Array<Comision>;
   id: number;
@@ -22,25 +33,6 @@ export class Materia {
 export class Comision {
   id: number;
   nombre: string;
-
-  constructor(mID: number, mNombre: string) {
-    this.id = mID;
-    this.nombre = mNombre;
-  }
-
 }
 
-export class Nivel {
-  id: number;
-  nombre: string;
 
-  constructor(mID: number, mNombre: string) {
-    this.id = mID;
-    this.nombre = mNombre;
-  }
-
-}
-
-export class Distribucion {
-
-}

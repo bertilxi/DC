@@ -125,8 +125,7 @@ export class HomePage {
     this.comisiones = [];
     this.filteredMaterias = [];
     for (let x of this.materias) {
-      if (x.id_carrera == this.selectCarrera.id &&
-        x.nivel == this.selectNivel.id) {
+      if (x.id_carrera == this.selectCarrera.id && x.nivel == this.selectNivel.id) {
         this.filteredMaterias.push(x)
       }
     }
@@ -196,7 +195,7 @@ export class HomePage {
     }
 
     if (!this.selectComision) {
-      this.selectComision = new Comision(-1, '');
+      this.selectComision = new Comision();
       this.selectComision.id = null;
     }
 

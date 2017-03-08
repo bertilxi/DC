@@ -56,7 +56,7 @@ Solo se reutilizó la misma API Rest usada por la aplicación oficial.
 Abri un issue, mandame un mail o hace un pull request
 <br>
 La aplicación esta abierta a sugerencias y mejoras
-</p
+</p>
 
 ## Tecnologías 
 

@@ -20,14 +20,17 @@ export class HomePage {
   private materias: Array<Materia> = new Array<Materia>();
   private filteredMaterias: Array<Materia> = new Array<Materia>();
   private comisiones: Array<Comision> = new Array<Comision>();
-  private selectCarrera: Carrera = new Carrera(0, "");
-  private selectNivel: Nivel = new Nivel(0, "");
+  private selectCarrera: Carrera = new Carrera(0, '');
+  private selectNivel: Nivel = new Nivel(0, '');
   private selectComision: Comision;
   private selectMateria: Materia;
   private distribution: any;
 
-  private CARRERA_KEY: string = "carrera";
-  private NIVEL_KEY: string = "nivel";
+  private CARRERA_KEY: string = 'carrera';
+  private NIVEL_KEY: string = 'nivel';
+
+  private subjectsURL: string = 'http://www.frsf.utn.edu.ar/getMaterias.php';
+  private distributionURL: string = 'http://www.frsf.utn.edu.ar/getDistribucion.php';
 
   constructor(
     private storage: Storage,
@@ -57,23 +60,23 @@ export class HomePage {
   private initData(): void {
 
     // CARRERAS
-    this.carreras.push(new Carrera(1, "Ingeniería en Sistemas"));
-    this.carreras.push(new Carrera(2, "Ingeniería Industrial"));
-    this.carreras.push(new Carrera(5, "Ingeniería Eléctrica"));
-    this.carreras.push(new Carrera(6, "Ingeniería Mecánica"));
-    this.carreras.push(new Carrera(7, "Ingeniería Civil"));
-    this.carreras.push(new Carrera(8, "Tecnicatura Superior en Mecatrónica"));
-    this.carreras.push(new Carrera(9, "Institucional"));
-    this.carreras.push(new Carrera(10, "Extensión Universitaria"));
+    this.carreras.push(new Carrera(1, this.strings.CAREER_ISI));
+    this.carreras.push(new Carrera(2, this.strings.CAREER_IIND));
+    this.carreras.push(new Carrera(5, this.strings.CAREER_IELE));
+    this.carreras.push(new Carrera(6, this.strings.CAREER_IMEC));
+    this.carreras.push(new Carrera(7, this.strings.CAREER_ICIV));
+    this.carreras.push(new Carrera(8, this.strings.CAREER_MEC));
+    this.carreras.push(new Carrera(9, this.strings.CAREER_INST));
+    this.carreras.push(new Carrera(10, this.strings.CAREER_EXT));
 
     //NIVELES
-    this.niveles.push(new Nivel(1, "Nivel 1"));
-    this.niveles.push(new Nivel(2, "Nivel 2"));
-    this.niveles.push(new Nivel(3, "Nivel 3"));
-    this.niveles.push(new Nivel(4, "Nivel 4"));
-    this.niveles.push(new Nivel(5, "Nivel 5"));
-    this.niveles.push(new Nivel(6, "Nivel 6"));
-    this.niveles.push(new Nivel(7, "No corresponde"));
+    this.niveles.push(new Nivel(1, this.strings.LEVEL_1));
+    this.niveles.push(new Nivel(2, this.strings.LEVEL_2));
+    this.niveles.push(new Nivel(3, this.strings.LEVEL_3));
+    this.niveles.push(new Nivel(4, this.strings.LEVEL_4));
+    this.niveles.push(new Nivel(5, this.strings.LEVEL_5));
+    this.niveles.push(new Nivel(6, this.strings.LEVEL_6));
+    this.niveles.push(new Nivel(7, this.strings.LEVEL_NA));
 
   }
 
@@ -107,14 +110,14 @@ export class HomePage {
       }
       if (xmlhttp.status != 200) {
         let alert = this.alertCtrl.create({
-          title: 'Error de conexión',
-          message: 'Intente nuevamente mas tarde',
-          buttons: ['OK']
+          title: this.strings.ERROR_CONN_TITLE,
+          message: this.strings.ERROR_CONN_MESSAGE,
+          buttons: [this.strings.OK_BUTTON]
         });
         alert.present();
       }
     }
-    xmlhttp.open("GET", "http://www.frsf.utn.edu.ar/getMaterias.php", true);
+    xmlhttp.open('GET', this.subjectsURL, true);
     xmlhttp.send();
   }
 
@@ -136,12 +139,10 @@ export class HomePage {
 
   searchDistribucion() {
 
-
-
     if (!this.selectCarrera || !this.selectCarrera.id) {
       let alert = this.alertCtrl.create({
-        title: 'Debe seleccionar una carrera',
-        buttons: ['OK']
+        title: this.strings.MUST_CHOOSE_CAREER_LABEL,
+        buttons: [this.strings.OK_BUTTON]
       });
       alert.present();
       return;
@@ -149,8 +150,8 @@ export class HomePage {
 
     if (!this.selectNivel || !this.selectNivel.id) {
       let alert = this.alertCtrl.create({
-        title: 'Debe seleccionar un nivel',
-        buttons: ['OK']
+        title: this.strings.MUST_CHOOSE_LEVEL_LABEL,
+        buttons: [this.strings.OK_BUTTON]
       });
       alert.present();
       return;
@@ -158,8 +159,8 @@ export class HomePage {
 
     if (!this.mDate) {
       let alert = this.alertCtrl.create({
-        title: 'Debe seleccionar una fecha',
-        buttons: ['OK']
+        title: this.strings.MUST_CHOOSE_DATE_LABEL,
+        buttons: [this.strings.OK_BUTTON]
       });
       alert.present();
       return;
@@ -190,9 +191,9 @@ export class HomePage {
       }
       if (xmlhttp.status != 200) {
         let alert = this.alertCtrl.create({
-          title: 'Error de conexión',
-          message: 'Intente nuevamente mas tarde',
-          buttons: ['OK']
+          title: this.strings.ERROR_CONN_TITLE,
+          message: this.strings.ERROR_CONN_MESSAGE,
+          buttons: [this.strings.OK_BUTTON]
         });
         alert.present();
       }
@@ -200,14 +201,14 @@ export class HomePage {
     }
 
     let params =
-      "fecha_inicio=" + this.myDate.substring(0, 10) +
-      "&carrera=" + this.selectCarrera.id +
-      "&nivel=" + this.selectNivel.id +
-      "&materia=" + this.selectMateria.id +
-      "&comisiones=" + this.selectComision.id;
+      'fecha_inicio=' + this.myDate.substring(0, 10) +
+      '&carrera=' + this.selectCarrera.id +
+      '&nivel=' + this.selectNivel.id +
+      '&materia=' + this.selectMateria.id +
+      '&comisiones=' + this.selectComision.id;
 
-    xmlhttp.open("POST", "http://www.frsf.utn.edu.ar/getDistribucion.php", true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.open('POST', this.distributionURL, true);
+    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xmlhttp.send(params);
 
     this.storage.set(this.CARRERA_KEY, JSON.stringify(this.selectCarrera));
@@ -216,7 +217,7 @@ export class HomePage {
 
   private gotoResultPage(distribution: any): void {
     this.navController.push(ResultPage, {
-      "distribution": distribution
+      'distribution': distribution
     });
   }
 

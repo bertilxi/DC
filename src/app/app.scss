@@ -1,3 +1,7 @@
+.resultContainer{
+    margin-top: 1em;
+}
+
 .bloque {
     margin-left: 1.5em;
     margin-right: 1.5em;
@@ -6,12 +10,9 @@
 .myButton {
     margin: 0 auto;
     width: 95%;
+    height: 3em;
 }
 
 ion-select {
-    max-width: 100%;
-}
-
-.select-md {
-    padding: 0 auto;
+    max-width: 75%;
 }

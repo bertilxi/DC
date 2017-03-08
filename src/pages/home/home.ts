@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, LoadingController } from 'ionic-angular';
 import { Materia, Comision, Nivel, Carrera } from '../../providers/model';
 import { Storage } from '@ionic/storage';
 import { Strings } from '../../providers/strings';
@@ -32,7 +32,8 @@ export class HomePage {
   constructor(
     private storage: Storage,
     private alertCtrl: AlertController,
-    private navController: NavController
+    private navController: NavController,
+    private loadingController: LoadingController
   ) {
 
     this.initData();
@@ -127,6 +128,8 @@ export class HomePage {
 
   searchDistribucion() {
 
+
+
     if (!this.selectCarrera || !this.selectCarrera.id) {
       let alert = this.alertCtrl.create({
         title: 'Debe seleccionar una carrera',
@@ -164,12 +167,19 @@ export class HomePage {
       this.selectComision.id = null;
     }
 
+    let loading = this.loadingController.create({
+      content: this.strings.PLEASE_WAIT_LABEL
+    });
+
+    loading.present();
+
     let xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         this.distribution = xmlhttp.responseText;
         this.gotoResultPage(this.distribution);
+        loading.dismiss();
       }
     }
 
@@ -190,7 +200,7 @@ export class HomePage {
 
   private gotoResultPage(distribution: any): void {
     this.navController.push(ResultPage, {
-      "distribution" : distribution
+      "distribution": distribution
     });
   }
 

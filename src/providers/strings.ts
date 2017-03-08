@@ -8,4 +8,5 @@ export class Strings {
     public SEARCH_LABEL: string = 'Buscar';
     public NEW_QUERY_LABEL: string = 'Nueva Consulta';
     public DISTRIBUTION_LABEL: string = 'Distribución de Aulas';
+    public PLEASE_WAIT_LABEL: string = 'Por favor espere';
 }

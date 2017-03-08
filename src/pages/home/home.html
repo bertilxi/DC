@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-navbar>{{strings.APP_NAME}}</ion-navbar>
+  <ion-navbar>
+    <ion-title>{{strings.APP_NAME}}</ion-title>
+  </ion-navbar>
 </ion-header>
+
 <ion-content>
-  <ion-list *ngIf="!showDistribution">
+  <ion-list>
     <ion-item>
       <ion-label>{{strings.CAREER_LABEL}}</ion-label>
       <ion-select [(ngModel)]="selectCarrera.id" [placeholder]="'Selecciona una carrera'" (ionChange)="onChangeCareer()">
@@ -22,7 +25,7 @@
       </ion-select>
     </ion-item>
     <ion-item *ngIf="selectMateria && selectMateria.id !== 0">
-    <ion-label>{{strings.COMISSION_LABEL}}</ion-label>
+      <ion-label>{{strings.COMISSION_LABEL}}</ion-label>
       <ion-select [(ngModel)]="selectComision" [placeholder]="'Selecciona una comisión'">
         <ion-option *ngFor="let mComision of comisiones" [value]="mComision" selected="false"> {{mComision.nombre}} </ion-option>
       </ion-select>
@@ -32,12 +35,9 @@
       <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="myDate"></ion-datetime>
     </ion-item>
   </ion-list>
-  <div style="padding-top: 50px"></div>
-  <div *ngIf="showDistribution">
-    <span [innerHTML]="distribution"></span>
-    <div style="padding-top: 50px"></div>
-  </div>
-  <button class="myButton" ion-button block *ngIf="!showDistribution" (tap)="searchDistribucion()">{{strings.SEARCH_LABEL}}</button>
-  <button class="myButton" ion-button block *ngIf="showDistribution" (tap)="newQuery()">{{strings.NEW_QUERY_LABEL}}</button>
+  
 </ion-content>
-<ion-footer></ion-footer>
+
+<ion-footer padding>
+<button class="myButton" ion-button block (tap)="searchDistribucion()">{{strings.SEARCH_LABEL}}</button>
+</ion-footer>

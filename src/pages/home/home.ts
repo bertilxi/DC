@@ -1,9 +1,9 @@
-
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { Materia, Comision, Nivel, Carrera } from '../../providers/model';
 import { Storage } from '@ionic/storage';
 import { Strings } from '../../providers/strings';
+import { ResultPage } from '../result/result';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +13,7 @@ export class HomePage {
 
   private mDate: Date = new Date();
   private myDate: String = this.mDate.toISOString();
-  private strings: Strings = new Strings();
+  public strings: Strings = new Strings();
 
   private carreras: Array<Carrera> = new Array<Carrera>();
   private niveles: Array<Nivel> = new Array<Nivel>();
@@ -25,13 +25,14 @@ export class HomePage {
   private selectComision: Comision;
   private selectMateria: Materia;
   private distribution: any;
-  private showDistribution: boolean = false;
+
   private CARRERA_KEY: string = "carrera";
   private NIVEL_KEY: string = "nivel";
 
   constructor(
     private storage: Storage,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private navController: NavController
   ) {
 
     this.initData();
@@ -124,11 +125,6 @@ export class HomePage {
     }
   }
 
-  newQuery() {
-    // TODO hide and show correct buttons
-    this.showDistribution = false;
-  }
-
   searchDistribucion() {
 
     if (!this.selectCarrera || !this.selectCarrera.id) {
@@ -173,7 +169,7 @@ export class HomePage {
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         this.distribution = xmlhttp.responseText;
-        this.showDistribution = true;
+        this.gotoResultPage(this.distribution);
       }
     }
 
@@ -190,6 +186,12 @@ export class HomePage {
 
     this.storage.set(this.CARRERA_KEY, JSON.stringify(this.selectCarrera));
     this.storage.set(this.NIVEL_KEY, JSON.stringify(this.selectNivel));
+  }
+
+  private gotoResultPage(distribution: any): void {
+    this.navController.push(ResultPage, {
+      "distribution" : distribution
+    });
   }
 
 }

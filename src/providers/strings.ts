@@ -7,4 +7,5 @@ export class Strings {
     public DATE_LABEL: string = 'Fecha';
     public SEARCH_LABEL: string = 'Buscar';
     public NEW_QUERY_LABEL: string = 'Nueva Consulta';
+    public DISTRIBUTION_LABEL: string = 'Distribución de Aulas';
 }

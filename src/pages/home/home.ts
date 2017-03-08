@@ -50,11 +50,11 @@ export class HomePage {
   private initData(): void {
 
     // CARRERAS
-    this.carreras.push(new Carrera(1, "Ing. Sistemas"));
-    this.carreras.push(new Carrera(2, "Ing. Industrial"));
-    this.carreras.push(new Carrera(5, "Ing. Eléctrica"));
-    this.carreras.push(new Carrera(6, "Ing. Mecánica"));
-    this.carreras.push(new Carrera(7, "Ing. Civil"));
+    this.carreras.push(new Carrera(1, "Ingeniería en Sistemas"));
+    this.carreras.push(new Carrera(2, "Ingeniería Industrial"));
+    this.carreras.push(new Carrera(5, "Ingeniería Eléctrica"));
+    this.carreras.push(new Carrera(6, "Ingeniería Mecánica"));
+    this.carreras.push(new Carrera(7, "Ingeniería Civil"));
     this.carreras.push(new Carrera(8, "TECNICATURA SUPERIOR EN MECATRÓNICA"));
     this.carreras.push(new Carrera(9, "Institucional"));
     this.carreras.push(new Carrera(10, "Extensión Universitaria"));

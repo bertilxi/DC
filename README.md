@@ -6,11 +6,11 @@
 
 ## Tabla de Contenidos
 
-- [Screenshots](#Screenshots)
-- [Descarga](#Descarga)
-- [Autores](#Autores)
-- [Colaboradores](#Colaboradores)
-- [Licencia](#Licencia)
+- [Screenshots](#screenshots)
+- [Descarga](#descarga)
+- [Autores](#autores)
+- [Colaboradores](#colaboradores)
+- [Licencia](#licencia)
 
 ## Screenshots
 

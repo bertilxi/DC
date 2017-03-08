@@ -12,7 +12,7 @@
 - [Autores](#autores)
 - [Colaboradores](#colaboradores)
 - [Tecnologías](#tecnologías)
-- [Quiero colaborar](#quiero colaborar)
+- [Quiero colaborar](#quiero-colaborar)
 - [Licencia](#licencia)
 
 ## Screenshots
@@ -28,7 +28,7 @@
 
 ## Descripción
 
-** Esta aplicación no es oficial **
+**Esta aplicación no es oficial**
 
 La aplicación oficial para la UTN FRSF es una aplicación híbrida desarrollada en cordova.
 Esta aplicación surgió debido a que la anterior no escala bien en resoluciones de 1080p o más.

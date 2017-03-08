@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { Materia, Comision, Nivel, Carrera } from '../../providers/model';
 import { Storage } from '@ionic/storage';
+import { Strings } from '../../providers/strings';
 
 @Component({
   selector: 'page-home',
@@ -12,6 +13,7 @@ export class HomePage {
 
   private mDate: Date = new Date();
   private myDate: String = this.mDate.toISOString();
+  private strings: Strings = new Strings();
 
   private carreras: Array<Carrera> = new Array<Carrera>();
   private niveles: Array<Nivel> = new Array<Nivel>();
@@ -27,7 +29,10 @@ export class HomePage {
   private CARRERA_KEY: string = "carrera";
   private NIVEL_KEY: string = "nivel";
 
-  constructor(private storage: Storage, private alertCtrl: AlertController) {
+  constructor(
+    private storage: Storage,
+    private alertCtrl: AlertController
+  ) {
 
     this.initData();
     this.loadSubjects();
@@ -80,7 +85,7 @@ export class HomePage {
 
   onChangeSubject() {
     this.comisiones = [];
-    if(!this.selectMateria){
+    if (!this.selectMateria) {
       return;
     }
     for (let i in this.selectMateria.comisiones) {

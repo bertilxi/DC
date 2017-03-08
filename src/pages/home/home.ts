@@ -21,7 +21,7 @@ export class HomePage {
   private selectCarrera: Carrera = new Carrera(0, "");
   private selectNivel: Nivel = new Nivel(0, "");
   private selectComision: Comision;
-  private selectMateria: Materia = new Materia();
+  private selectMateria: Materia;
   private distribution: any;
   private showDistribution: boolean = false;
   private CARRERA_KEY: string = "carrera";
@@ -55,7 +55,7 @@ export class HomePage {
     this.carreras.push(new Carrera(5, "Ing. Eléctrica"));
     this.carreras.push(new Carrera(6, "Ing. Mecánica"));
     this.carreras.push(new Carrera(7, "Ing. Civil"));
-    this.carreras.push(new Carrera(8, "TECNICATURA SUPERIOR EN MECATRÓNICA"));
+    this.carreras.push(new Carrera(8, "Tecnicatura Superior en Mecatrónica"));
     this.carreras.push(new Carrera(9, "Institucional"));
     this.carreras.push(new Carrera(10, "Extensión Universitaria"));
 
@@ -96,6 +96,7 @@ export class HomePage {
         for (let i in data) {
           this.materias.push(data[i]);
         }
+        this.processSubjectsLoad();
       }
     }
     xmlhttp.open("GET", "http://www.frsf.utn.edu.ar/getMaterias.php", true);

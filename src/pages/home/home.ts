@@ -18,8 +18,8 @@ export class HomePage {
   private materias: Array<Materia> = new Array<Materia>();
   private filteredMaterias: Array<Materia> = new Array<Materia>();
   private comisiones: Array<Comision> = new Array<Comision>();
-  private selectCarrera: Carrera;
-  private selectNivel: Nivel;
+  private selectCarrera: Carrera = new Carrera(0, "");
+  private selectNivel: Nivel = new Nivel(0, "");
   private selectComision: Comision;
   private selectMateria: Materia = new Materia();
   private distribution: any;
@@ -28,28 +28,23 @@ export class HomePage {
   private NIVEL_KEY: string = "nivel";
 
   constructor(private storage: Storage, private alertCtrl: AlertController) {
+
     this.initData();
-    this.selectCarrera = new Carrera(0, '');
-    this.selectNivel = new Nivel(0, '');
     this.loadSubjects();
-    console.log("a");
+
     storage.ready().then(() => {
-      console.log("b");
       this.storage.get(this.CARRERA_KEY).then(data => {
-        console.log("c");
         if (data) {
           this.selectCarrera = JSON.parse(data);
-          this.onChangeCareer();
-          console.log(this.selectCarrera);
         }
       });
       this.storage.get(this.NIVEL_KEY).then(data => {
         if (data) {
-          this.selectMateria = JSON.parse(data);
-          this.onChangeLevel();
+          this.selectNivel = JSON.parse(data);
         }
       });
     });
+
   }
 
   private initData(): void {
@@ -76,8 +71,6 @@ export class HomePage {
   }
 
   onChangeCareer() {
-    console.log("z");
-    console.log(this.selectCarrera);
     this.processSubjectsLoad();
   }
 

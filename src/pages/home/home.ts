@@ -179,8 +179,8 @@ export class HomePage {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         this.distribution = xmlhttp.responseText;
         this.gotoResultPage(this.distribution);
-        loading.dismiss();
       }
+        loading.dismiss();
     }
 
     let params =

@@ -15,14 +15,14 @@
         <ion-option *ngFor="let mNivel of niveles" [value]="mNivel.id" selected="false"> {{mNivel.nombre}} </ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="selectCarrera && selectCarrera.id !== 0 && selectNivel && selectNivel.id !== 0">
       <ion-label>Materia:</ion-label>
       <ion-select [(ngModel)]="selectMateria" [placeholder]="'Selecciona una materia'" (ionChange)="onChangeSubject()">
         <ion-option *ngFor="let mMateria of filteredMaterias" [value]="mMateria" selected="false"> {{mMateria.nombre}} </ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-label>Comision:</ion-label>
+    <ion-item *ngIf="selectMateria && selectMateria.id !== 0">
+      <ion-label>Comisión:</ion-label>
       <ion-select [(ngModel)]="selectComision" [placeholder]="'Selecciona una comisión'">
         <ion-option *ngFor="let mComision of comisiones" [value]="mComision" selected="false"> {{mComision.nombre}} </ion-option>
       </ion-select>

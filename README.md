@@ -28,13 +28,20 @@
 
 ## Descripción
 
+
 **Esta aplicación no es oficial**
 
+<p>
 La aplicación oficial para la UTN FRSF es una aplicación híbrida desarrollada en cordova.
+<br>
 Esta aplicación surgió debido a que la anterior no escala bien en resoluciones de 1080p o más.
+<br>
 Se desarrollo usando IONIC 2 framework, el cual se apoya en cordova, pero utilizando lo último de las tecnologías web y teniendo un adecuado soporte para las distintas resoluciones de los dispositivos móviles.
+<br>
 Esta aplicación fue desarrollada desde cero y no tiene ninguna relación con la aplicación oficial.
+<br>
 Solo se reutilizó la misma API Rest usada por la aplicación oficial.
+</p>
 
 ## Autores
 
@@ -45,9 +52,11 @@ Solo se reutilizó la misma API Rest usada por la aplicación oficial.
 * **Daniel Campodonico** - [DCampodonico](https://github.com/DCampodonico)
 
 ## Quiero colaborar
-
+<p>
 Abri un issue, mandame un mail o hace un pull request
+<br>
 La aplicación esta abierta a sugerencias y mejoras
+</p
 
 ## Tecnologías 
 

@@ -8,26 +8,31 @@
   <ion-list>
     <ion-item>
       <ion-label>{{strings.CAREER_LABEL}}</ion-label>
-      <ion-select [(ngModel)]="selectCarrera.id" [placeholder]="'Selecciona una carrera'" (ionChange)="onChangeCareer()">
-        <ion-option *ngFor="let mCarrera of carreras" [value]="mCarrera.id" selected="false"> {{mCarrera.nombre}} </ion-option>
+      <ion-select [(ngModel)]="selectCarrera.id" [placeholder]="'Selecciona una carrera'"
+                  (ionChange)="processSubjectsLoad()">
+        <ion-option *ngFor="let mCarrera of carreras" [value]="mCarrera.id" selected="false"> {{mCarrera.nombre}}
+        </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>{{strings.LEVEL_LABEL}}</ion-label>
-      <ion-select [(ngModel)]="selectNivel.id" [placeholder]="'Selecciona un nivel'" (ionChange)="processSubjectsLoad()">
-        <ion-option *ngFor="let mNivel of niveles" [value]="mNivel.id" selected="false"> {{mNivel.nombre}} </ion-option>
+      <ion-select [(ngModel)]="selectNivel.id" [placeholder]="'Selecciona un nivel'"
+                  (ionChange)="processSubjectsLoad()">
+        <ion-option *ngFor="let mNivel of niveles" [value]="mNivel.id" selected="false"> {{mNivel.nombre}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="selectCarrera && selectCarrera.id !== 0 && selectNivel && selectNivel.id !== 0">
       <ion-label>{{strings.SUBJECT_LABEL}}</ion-label>
       <ion-select [(ngModel)]="selectMateria" [placeholder]="'Selecciona una materia'" (ionChange)="onChangeSubject()">
-        <ion-option *ngFor="let mMateria of filteredMaterias" [value]="mMateria" selected="false"> {{mMateria.nombre}} </ion-option>
+        <ion-option *ngFor="let mMateria of filteredMaterias" [value]="mMateria" selected="false"> {{mMateria.nombre}}
+        </ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="selectMateria && selectMateria.id !== 0">
       <ion-label>{{strings.COMISSION_LABEL}}</ion-label>
       <ion-select [(ngModel)]="selectComision" [placeholder]="'Selecciona una comisión'">
-        <ion-option *ngFor="let mComision of comisiones" [value]="mComision" selected="false"> {{mComision.nombre}} </ion-option>
+        <ion-option *ngFor="let mComision of comisiones" [value]="mComision" selected="false"> {{mComision.nombre}}
+        </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>

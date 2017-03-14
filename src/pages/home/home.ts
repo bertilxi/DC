@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { AlertController, NavController, LoadingController } from 'ionic-angular';
-import { Materia, Comision, Nivel, Carrera } from '../../providers/model';
-import { Storage } from '@ionic/storage';
-import { Strings } from '../../providers/strings';
-import { ResultPage } from '../result/result';
+import {Component} from '@angular/core';
+import {Storage} from '@ionic/storage';
+import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {Carrera, Comision, Materia, Nivel} from '../../providers/model';
+import {Strings} from '../../providers/strings';
+import {ResultPage} from '../result/result';
 
 @Component({
   selector: 'page-home',
@@ -15,11 +15,11 @@ export class HomePage {
   private myDate: String = this.mDate.toISOString();
   public strings: Strings = new Strings();
 
-  private carreras: Array<Carrera> = new Array<Carrera>();
-  private niveles: Array<Nivel> = new Array<Nivel>();
-  private materias: Array<Materia> = new Array<Materia>();
-  private filteredMaterias: Array<Materia> = new Array<Materia>();
-  private comisiones: Array<Comision> = new Array<Comision>();
+  private carreras: Array<Carrera> = [];
+  private niveles: Array<Nivel> = [];
+  private materias: Array<Materia> = [];
+  private filteredMaterias: Array<Materia> = [];
+  private comisiones: Array<Comision> = [];
   private selectCarrera: Carrera = new Carrera(0, '');
   private selectNivel: Nivel = new Nivel(0, '');
   private selectComision: Comision;
@@ -32,12 +32,10 @@ export class HomePage {
   private subjectsURL: string = 'http://www.frsf.utn.edu.ar/getMaterias.php';
   private distributionURL: string = 'http://www.frsf.utn.edu.ar/getDistribucion.php';
 
-  constructor(
-    private storage: Storage,
-    private alertCtrl: AlertController,
-    private navController: NavController,
-    private loadingController: LoadingController
-  ) {
+  constructor(private storage: Storage,
+              private alertCtrl: AlertController,
+              private navController: NavController,
+              private loadingController: LoadingController) {
 
     this.initData();
     this.loadSubjects();
@@ -80,22 +78,12 @@ export class HomePage {
 
   }
 
-  public onChangeCareer(): void {
-    this.processSubjectsLoad();
-  }
-
-  public onChangeLevel(): void {
-    this.processSubjectsLoad();
-  }
-
   public onChangeSubject(): void {
     this.comisiones = [];
     if (!this.selectMateria) {
       return;
     }
-    for (let i in this.selectMateria.comisiones) {
-      this.comisiones.push(this.selectMateria.comisiones[i]);
-    }
+    this.comisiones = this.selectMateria.comisiones;
   }
 
   public loadSubjects(): void {
@@ -108,10 +96,10 @@ export class HomePage {
         }
         this.processSubjectsLoad();
       }
-      if (xmlhttp.readyState == 4 && xmlhttp.status != 200) {
+      if (xmlhttp.readyState === 4 && xmlhttp.status !== 200) {
         this.createAlert(this.strings.ERROR_CONN_TITLE, this.strings.OK_BUTTON, this.strings.ERROR_CONN_MESSAGE);
       }
-    }
+    };
     xmlhttp.open('GET', this.subjectsURL, true);
     xmlhttp.send();
   }
@@ -123,18 +111,18 @@ export class HomePage {
     this.selectMateria = undefined;
     this.selectComision = undefined;
     this.comisiones = [];
-    this.filteredMaterias = [];
-    for (let x of this.materias) {
-      if (x.id_carrera == this.selectCarrera.id && x.nivel == this.selectNivel.id) {
-        this.filteredMaterias.push(x)
-      }
-    }
+
+    this.filteredMaterias = this.materias
+      .filter(materia => materia.id_carrera == this.selectCarrera.id)
+      .filter(materia => materia.nivel == this.selectNivel.id);
+
   }
 
   private createAlert(title, button, message = ''): void {
     let alert = this.alertCtrl.create({
       title: title,
-      buttons: [button]
+      buttons: [button],
+      message: message
     });
     alert.present();
   }
@@ -158,7 +146,7 @@ export class HomePage {
         this.createAlert(this.strings.ERROR_CONN_TITLE, this.strings.OK_BUTTON, this.strings.ERROR_CONN_MESSAGE);
       }
       loading.dismiss();
-    }
+    };
 
     let params =
       'fecha_inicio=' + this.myDate.substring(0, 10) +
@@ -206,9 +194,10 @@ export class HomePage {
   }
 
   private gotoResultPage(distribution: any): void {
-    this.navController.push(ResultPage, {
-      'distribution': distribution
-    });
+    this.navController
+      .push(ResultPage, {
+        'distribution': distribution
+      });
   }
 
 }
